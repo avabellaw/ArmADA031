@@ -1,6 +1,6 @@
-#include <Servo.h>
+#include <VarSpeedServo.h>
 
-class ArmServo : public Servo {
+class ArmServo : public VarSpeedServo {
   private:
     int servoPin;
     int initialAngle;
@@ -52,7 +52,8 @@ void loop() {
   Serial.println(operand1);  
   Serial.println(operand2);  
 
-  servos[operand1.toInt()].write(operand2.toInt());
+  servos[operand1.toInt()].write(operand2.toInt(), 40, false);
+  servos[2].write(140, 40, false);
   
   }
 }
