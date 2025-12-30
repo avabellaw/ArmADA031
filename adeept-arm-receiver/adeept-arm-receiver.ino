@@ -32,28 +32,27 @@ void setup() {
 
   for(ArmServo s : servos){
     s.init();
-    Serial.println(s.getServoPin());
   }
 }
 void loop() {
-  // if (Serial.available()) 
-  // {
-  // String receivedStr = Serial.readString(); 
+  if (Serial.available()) 
+  {
+  String receivedStr = Serial.readString(); 
 
-  // Serial.println(receivedStr);
+  Serial.println(receivedStr);
 
-  // int index = receivedStr.lastIndexOf(':');
-  // int length = receivedStr.length();
+  int index = receivedStr.lastIndexOf(':');
+  int length = receivedStr.length();
 
-  // Serial.println(index);
-  // Serial.println(length);
+  Serial.println(index);
+  Serial.println(length);
 
-  // String operand1 = receivedStr.substring(0, index);
-  // String operand2 = receivedStr.substring(index+1, length);
-  // Serial.println(operand1);  
-  // Serial.println(operand2);  
+  String operand1 = receivedStr.substring(0, index);
+  String operand2 = receivedStr.substring(index+1, length);
+  Serial.println(operand1);  
+  Serial.println(operand2);  
 
-  // servos[operand1.toInt()].write(operand2.toInt());
+  servos[operand1.toInt()].write(operand2.toInt());
   
-  // }//endof if 
+  }
 }
