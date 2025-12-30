@@ -1,21 +1,21 @@
 #include <Servo.h>
 
-int angle = 90;        //Angle of rotation of the servo
-
 class ArmServo : public Servo {
   private:
     int servoPin;
+    int initialAngle;
 
   public:
-    ArmServo(int servoPin) {
+    ArmServo(int servoPin, int initialAngle = 90) {
       this->servoPin = servoPin; 
+      this->initialAngle = initialAngle;
 
       pinMode(servoPin, OUTPUT);
     }
 
     void init(){
       attach(servoPin);
-      write(angle);
+      write(initialAngle);
     } 
 
     int getServoPin() {
@@ -23,7 +23,7 @@ class ArmServo : public Servo {
     }
 }; 
 
-ArmServo servos[5] = { ArmServo(9), ArmServo(6), ArmServo(5), ArmServo(3), ArmServo(11) };
+ArmServo servos[5] = { ArmServo(9), ArmServo(6), ArmServo(5), ArmServo(3), ArmServo(11, 180) };
 
 void setup() {
   delay(20);
