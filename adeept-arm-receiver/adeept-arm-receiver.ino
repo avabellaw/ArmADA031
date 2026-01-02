@@ -1,5 +1,7 @@
 #include <VarSpeedServo.h>
 
+int SPEED = 20; 
+
 class ArmServo : public VarSpeedServo {
 private:
   int servoPin;
@@ -73,10 +75,16 @@ void loop() {
     // sin(theta2) = opposite / hyp
     double angle2theta2 = asin(z / l);
 
-    double angle1 = 180 - toDegrees(angle2theta1 + angle2theta2);
+    double angle1 = toDegrees(angle2theta1 + angle2theta2);
 
     // The law of cosines
     double angle2 = 360 - 90 - toDegrees(acos((sq(d2) + sq(d1) - sq(l)) / (2 * d2 * d1)));
+
+    Serial.print("angle2theta1: ");
+    Serial.println(angle2theta1);
+
+    Serial.print("angle2theta2: ");
+    Serial.println(angle2theta2);
 
     Serial.print("angle1: ");
     Serial.println(angle1);
@@ -87,9 +95,9 @@ void loop() {
     Serial.print("baseAngle");
     Serial.println(baseAngle);
 
-    servos[0].write(baseAngle, 40, false);
-    servos[1].write(angle1, 40, false);
-    servos[2].write(angle2, 40, false);
+    servos[0].write(baseAngle, SPEED, false);
+    servos[1].write(angle1, SPEED, false);
+    servos[2].write(angle2, SPEED, false);
   }
 }
 
@@ -99,5 +107,5 @@ double toDegrees(double radians) {
 
 double getBaseAngle(int x, int y) {
     // theta = atan(opposite / adj)
-    return toDegrees(atan2(y, x));
+    return toDegrees(atan2(abs(y), x));
 }
