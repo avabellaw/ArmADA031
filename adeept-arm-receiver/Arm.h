@@ -1,14 +1,17 @@
 #include "ArmServo.h"
+#include "Grabber.h"
 
 class Arm {
     private:
         // base, angle1, angle2, grabberBase, grabberOpenClose (inital=closed)
-        ArmServo servos[5] = { ArmServo(9), ArmServo(6), ArmServo(5), ArmServo(3), ArmServo(11, 180) };
+        ArmServo base = ArmServo(9);
+        ArmServo shoulder = ArmServo(6);
+        ArmServo elbow = ArmServo(5);
 
-        int SPEED = 20;
+        Grabber grabber = Grabber();
         
-        static const double d1 = 6.5;
-        static const double d2 = 13.5; 
+        static const double d1 = 6.5; // cm - Upperarm length
+        static const double d2 = 13.5; // cm - Forearm length (including grabber)
 
         double toDegrees(double radians) {
             return radians * (180.0 / M_PI);
@@ -35,16 +38,16 @@ class Arm {
             Serial.print("elbowAngle");
             Serial.println(elbowAngle);
 
-            servos[0].write(baseAngle, SPEED, false);
-            servos[1].write(shoulderAngle, SPEED, false);
-            servos[2].write(elbowAngle, SPEED, false);
+            base.setAngle(baseAngle);
+            shoulder.setAngle(shoulderAngle);
+            elbow.setAngle(elbowAngle);
         }
 
     public:
         Arm(){
-            for (ArmServo s : servos) {
-                s.init();
-            }
+            base.init();
+            shoulder.init();
+            elbow.init();
         }
 
         /**
