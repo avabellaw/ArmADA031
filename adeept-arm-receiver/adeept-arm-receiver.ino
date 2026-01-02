@@ -1,8 +1,5 @@
 #include "Arm.h"
 
-double toDegrees(double radians);
-double getBaseAngle(int x, int y);
-
 Arm arm = Arm();
 
 void setup() {
@@ -14,22 +11,22 @@ void loop() {
   if (Serial.available()) {
     String receivedStr = Serial.readString();
 
-    Serial.println(receivedStr);
-
-    int index = receivedStr.lastIndexOf(':');
-    int middle = receivedStr.indexOf(':');
+    
+    // Format serial message as "x:y:z"
+    int lastColonIndex = receivedStr.lastIndexOf(':');
+    int firstColonIndex = receivedStr.indexOf(':');
     int length = receivedStr.length();
 
+    String xStr = receivedStr.substring(0, firstColonIndex);
+    String yStr = receivedStr.substring(firstColonIndex + 1, lastColonIndex);
+    String zStr = receivedStr.substring(lastColonIndex + 1, length);
+
     // Extract coords from serial message string "x:y:z"
-    String operand1 = receivedStr.substring(0, middle);
-    String operand2 = receivedStr.substring(middle + 1, index);
-    String operand3 = receivedStr.substring(index + 1, length);
+    double x = xStr.toDouble();
+    double y = yStr.toDouble();
+    double z = zStr.toDouble();
 
-    Serial.println("" + operand1 + ", " + operand2 + ", " + operand3);
-
-    double x = operand1.toDouble();
-    double y = operand2.toDouble();
-    double z = operand3.toDouble();
+    Serial.println("Inputted values: x=" + xStr + ", y=" + yStr + ", z=" + zStr);
 
     arm.moveTo(x, y, z);
   }
