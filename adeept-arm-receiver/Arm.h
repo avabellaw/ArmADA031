@@ -19,6 +19,12 @@ class Arm {
             return toDegrees(atan2(abs(y), x));
         }
 
+        /**
+         * @brief Set the angles of the positional servos
+         * @param baseAngle Angle of the horizontal base servo
+         * @param shoulderAngle Servo 2
+         * @param elbowAngle Servo 3
+         */
         void setAngles(double baseAngle, double shoulderAngle, double elbowAngle) {
             Serial.print("baseAngle: ");
             Serial.println(baseAngle);
@@ -41,6 +47,10 @@ class Arm {
             }
         }
 
+        /**
+         * @brief Moves the arm to specific coordinates
+         * @param x, y, z The coordinates
+         */
         void moveTo(double x, double y, double z) {
             double baseAngle = getBaseAngle(x, y);
 
