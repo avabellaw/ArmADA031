@@ -1,29 +1,6 @@
-#include <VarSpeedServo.h>
+#include "ArmServo.h"
 
 int SPEED = 20; 
-
-class ArmServo : public VarSpeedServo {
-private:
-  int servoPin;
-  int initialAngle;
-
-public:
-  ArmServo(int servoPin, int initialAngle = 90) {
-    this->servoPin = servoPin;
-    this->initialAngle = initialAngle;
-
-    pinMode(servoPin, OUTPUT);
-  }
-
-  void init() {
-    attach(servoPin);
-    write(initialAngle);
-  }
-
-  int getServoPin() {
-    return servoPin;
-  }
-};
 
 double toDegrees(double radians);
 double getBaseAngle(int x, int y);
