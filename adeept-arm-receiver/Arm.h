@@ -50,6 +50,10 @@ class Arm {
             elbow.init();
         }
 
+        void update() {
+            
+        }
+
         /**
          * @brief Moves the arm to specific coordinates
          * @param x, y, z The coordinates

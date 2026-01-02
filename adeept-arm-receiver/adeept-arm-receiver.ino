@@ -2,32 +2,39 @@
 
 Arm arm = Arm();
 
+void checkForSerialMessages();
+
 void setup() {
   delay(20);
 
   Serial.begin(115200);
 }
 void loop() {
-  if (Serial.available()) {
-    String receivedStr = Serial.readString();
+    checkForSerialMessages();
 
-    
-    // Format serial message as "x:y:z"
-    int lastColonIndex = receivedStr.lastIndexOf(':');
-    int firstColonIndex = receivedStr.indexOf(':');
-    int length = receivedStr.length();
+    arm.update();
+}
 
-    String xStr = receivedStr.substring(0, firstColonIndex);
-    String yStr = receivedStr.substring(firstColonIndex + 1, lastColonIndex);
-    String zStr = receivedStr.substring(lastColonIndex + 1, length);
+void checkForSerialMessages(){
+    if (Serial.available()) {
+        String receivedStr = Serial.readString();
 
-    // Extract coords from serial message string "x:y:z"
-    double x = xStr.toDouble();
-    double y = yStr.toDouble();
-    double z = zStr.toDouble();
+        // Format serial message as "x:y:z"
+        int lastColonIndex = receivedStr.lastIndexOf(':');
+        int firstColonIndex = receivedStr.indexOf(':');
+        int length = receivedStr.length();
 
-    Serial.println("Inputted values: x=" + xStr + ", y=" + yStr + ", z=" + zStr);
+        String xStr = receivedStr.substring(0, firstColonIndex);
+        String yStr = receivedStr.substring(firstColonIndex + 1, lastColonIndex);
+        String zStr = receivedStr.substring(lastColonIndex + 1, length);
 
-    arm.moveTo(x, y, z);
-  }
+        // Extract coords from serial message string "x:y:z"
+        double x = xStr.toDouble();
+        double y = yStr.toDouble();
+        double z = zStr.toDouble();
+
+        Serial.println("Inputted values: x=" + xStr + ", y=" + yStr + ", z=" + zStr);
+
+        arm.moveTo(x, y, z);
+    }
 }
