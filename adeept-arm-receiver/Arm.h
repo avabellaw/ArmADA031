@@ -42,9 +42,14 @@ class Arm {
 
     public:
         Arm(){
+        }
+
+        void init(){
             base.init();
             shoulder.init();
             elbow.init();
+            
+            grabber.init();
         }
 
         void update() {

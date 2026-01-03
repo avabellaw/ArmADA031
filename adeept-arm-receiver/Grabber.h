@@ -6,6 +6,9 @@ class Grabber {
         ArmServo pincers = ArmServo(11, 180);
 
         Grabber(){
+        }
+
+        void init(){
             base.init();
             pincers.init();
         }

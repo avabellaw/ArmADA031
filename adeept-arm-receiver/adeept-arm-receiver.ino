@@ -8,6 +8,8 @@ void setup() {
   delay(20);
 
   Serial.begin(115200);
+
+  arm.init();
 }
 void loop() {
     checkForSerialMessages();
