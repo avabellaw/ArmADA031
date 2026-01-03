@@ -29,18 +29,15 @@ class Arm {
          * @param elbowAngle Servo 3
          */
         void setAngles(double baseAngle, double shoulderAngle, double elbowAngle) {
-            Serial.print("baseAngle: ");
-            Serial.println(baseAngle);
-
-            Serial.print("shoulderAngle");
-            Serial.println(shoulderAngle);
-
-            Serial.print("elbowAngle");
-            Serial.println(elbowAngle);
-
+            Serial.println("baseAngle - ");
             base.setAngle(baseAngle);
+
+            Serial.println("shoulderAngle - ");
             shoulder.setAngle(shoulderAngle);
+
+            Serial.println("elbowAngle - ");
             elbow.setAngle(elbowAngle);
+
         }
 
     public:

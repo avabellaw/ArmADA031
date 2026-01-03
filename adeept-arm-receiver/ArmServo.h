@@ -32,7 +32,12 @@ public:
   }
 
   void setAngle(int angle, bool isBlocking = false) {
-    write(angle, speed, isBlocking);
+    if (angle > 180 || angle < 0) {
+        Serial.println("Angle is " + String(angle % 180) + " out of bounds.");
+    } else {
+        Serial.println("Angle set to: " + String(angle) + " degrees");
+        write(angle, speed, isBlocking);
+    }
   }
 };
 
