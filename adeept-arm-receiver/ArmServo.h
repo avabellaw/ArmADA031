@@ -31,6 +31,16 @@ public:
     this->speed = speed;
   }
 
+  void adjustAngle(int numToAdjustAngleBy, bool isBlocking = false) {
+    int result = read() + numToAdjustAngleBy;
+
+    if (result < 0 || result > 180) {
+        Serial.println("angle adjustment out of bounds");
+    } else {
+        setAngle(read() + numToAdjustAngleBy, isBlocking);
+    }
+  }
+
   void setAngle(int angle, bool isBlocking = false) {
     if (angle > 180 || angle < 0) {
         Serial.println("Angle is " + String(angle % 180) + " out of bounds.");
